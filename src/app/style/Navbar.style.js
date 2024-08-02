@@ -2,8 +2,8 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const NavBarBox = styled(Box)({
-    // border: "2px solid",
-    width: "23%",
+    border: "2px solid",
+    width: "100%",
     position: "relative",
     height: "100vh",
     display: "flex",
