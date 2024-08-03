@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 /* Component import */
 import Navbar from "./components/Navbar.jsx";
+import { Grid } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,8 +15,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
+        <Grid container>
+          <Grid item lg={3}>
+
+            <Navbar />
+          </Grid>
+          <Grid item lg={9}>
+            {children}
+          </Grid>
+
+        </Grid>
       </body>
     </html>
   );

@@ -1,0 +1,30 @@
+'use client'
+import React from 'react'
+/* style import */
+import { TopBox } from '../style/TopRightBtn.style'
+/* mui import */
+import { Box, Button } from '@mui/material'
+import DialogBox from './DialogBox'
+import CustomBtn from './CustomBtn'
+
+const TopRightBtn = ({ openPopForAddTask }) => {
+    const [open, setOpen] = React.useState(false);
+    const handelFunc = () => {
+        if (openPopForAddTask === "Add task") {
+            console.log("inside if");
+            setOpen(!open);
+        }
+    }
+    return (
+        <>
+            <TopBox>
+                <CustomBtn variant="outlined" onClick={handelFunc} textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">Add task</CustomBtn>
+            </TopBox>
+            {
+                open && <DialogBox setOpen={setOpen} />
+            }
+        </>
+    )
+}
+
+export default TopRightBtn
