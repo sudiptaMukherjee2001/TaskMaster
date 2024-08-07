@@ -6,6 +6,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
+import Link from 'next/link';
 const Navbar = () => {
     const [activeItemId, setActiveItemId] = useState(null);
 
@@ -17,7 +18,7 @@ const Navbar = () => {
     ];
 
     const clickedItem = (id) => {
-        console.log(id);
+        console.log("clicked", id);
         setActiveItemId(id);
     };
 
@@ -34,10 +35,10 @@ const Navbar = () => {
                     // className='font-edu'
                     >
                         {/* <div className="containers"> */}
-                        <a href={item.link}>
+                        <Link href={item.link}>
                             <item.icon className='icon' />
                             {item.name}
-                        </a>
+                        </Link>
 
                         {/* </div> */}
                     </ListItem>
