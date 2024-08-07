@@ -10,10 +10,10 @@ const Navbar = () => {
     const [activeItemId, setActiveItemId] = useState(null);
 
     const listInfo = [
-        { id: 1, name: "All task", icon: ListAltIcon },
-        { id: 2, name: "Completed task", icon: FactCheckIcon },
-        { id: 3, name: "Pending task", icon: PendingActionsIcon },
-        { id: 4, name: "Analytics", icon: InsertChartIcon },
+        { id: 1, name: "All task", icon: ListAltIcon, link: "/all-task" },
+        { id: 2, name: "Completed task", icon: FactCheckIcon, link: "/completed-task" },
+        { id: 3, name: "Pending task", icon: PendingActionsIcon, link: "#" },
+        { id: 4, name: "Analytics", icon: InsertChartIcon, link: "#" },
     ];
 
     const clickedItem = (id) => {
@@ -34,7 +34,7 @@ const Navbar = () => {
                     // className='font-edu'
                     >
                         {/* <div className="containers"> */}
-                        <a href="#">
+                        <a href={item.link}>
                             <item.icon className='icon' />
                             {item.name}
                         </a>

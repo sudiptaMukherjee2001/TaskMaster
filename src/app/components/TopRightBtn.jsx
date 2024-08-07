@@ -14,11 +14,15 @@ const TopRightBtn = ({ openPopForAddTask }) => {
             console.log("inside if");
             setOpen(!open);
         }
+        if (openPopForAddTask === "Clear all") {
+            console.log("inside if");
+            setOpen(!open);
+        }
     }
     return (
         <>
             <TopBox>
-                <CustomBtn variant="outlined" onClick={handelFunc} textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">Add task</CustomBtn>
+                <CustomBtn variant="outlined" onClick={handelFunc} textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">{openPopForAddTask}</CustomBtn>
             </TopBox>
             {
                 open && <DialogBox setOpen={setOpen} />

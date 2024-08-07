@@ -17,9 +17,6 @@ const AllTask = () => {
                 <TaskSummary />
                 <TaskSummary />
             </TaskContainer>
-
-
-
         </>
     )
 }
