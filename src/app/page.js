@@ -1,6 +1,6 @@
 import Image from "next/image";
-import AllTask from "./pages/AllTask";
-import CompletedTask from "./pages/CompletedTask";
+import AllTask from "./all-task/page";
+import CompletedTask from "./completed-task/page";
 
 export default function Home() {
   return (
