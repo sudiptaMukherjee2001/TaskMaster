@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
 
             <Navbar />
           </Grid>
-          <Grid item lg={9}>
+          <Grid item md={9} lg={9} border={"2px solid red"}>
             {children}
           </Grid>
 
