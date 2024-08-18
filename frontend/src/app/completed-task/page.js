@@ -11,6 +11,8 @@ const CompletedTask = () => {
             {/* task info component */}
             <section>
                 <TaskSummary />
+
+
                 <TaskSummary />
                 <TaskSummary />
             </section>
