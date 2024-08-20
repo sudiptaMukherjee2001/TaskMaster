@@ -3,14 +3,14 @@ import { BootstrapDialog, CustomBox } from '../style/DialogBox.style';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, FormControl, TextField } from '@mui/material';
+import { Box, FormControl, FormHelperText, TextField } from '@mui/material';
 import CustomBtn from './CustomBtn';
 import { Field, FormikProvider, useFormik } from 'formik';
 import * as yup from 'yup';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { createTaskReq } from '@/utils/createTaskReq';
-
+import { format } from 'date-fns';
 const DialogBox = ({ setOpen }) => {
 
     const handleClose = () => {
@@ -21,6 +21,7 @@ const DialogBox = ({ setOpen }) => {
         taskTitle: yup.string('Enter task title').required('Task title is required'),
         taskDate: yup.string('Select the date').required('Date is required'),
         taskname: yup.string('Enter task name').required('Task name is required'),
+
     });
 
 
@@ -28,13 +29,20 @@ const DialogBox = ({ setOpen }) => {
     const formik = useFormik({
         initialValues: {
             taskTitle: '',
-            taskDate: new Date().toLocaleDateString(),
+            taskDate: format(new Date(), 'MMM d yyyy'),
             taskInfo: [],
         },
         validationSchema,
-        onSubmit: (values) => {
-            createTaskReq(values)
-            console.log("This is dialog box values:", values);
+        onSubmit: async (values) => {
+            try {
+                values.taskDate = format(values.taskDate, 'MMM d yyyy'); // Ensure the selected date is formatted consistently
+                await createTaskReq(values);
+                console.log("This is dialog box values:", values);
+                // You can also add logic to handle success, such as showing a success message
+            } catch (error) {
+                console.error("Failed to create task:", error);
+                // Handle errors, e.g., show an error message
+            }
         },
     });
 
@@ -136,6 +144,7 @@ const DialogBox = ({ setOpen }) => {
                                                     <option value="Medium">Medium</option>
                                                     <option value="Low">Low</option>
                                                 </Field>
+
                                             </FormControl>
                                         </Box>
 

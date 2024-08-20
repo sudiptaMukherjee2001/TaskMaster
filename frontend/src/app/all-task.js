@@ -21,8 +21,10 @@ const AllTask = async () => {
             {/* task info component */}
             <section>
                 {
-                    data.map((task, index) => (
-                        <TaskSummary title={task?.taskTitle} date={task?.taskDate} key={index} />
+                    data?.map((task, index) => (
+                        <TaskSummary id={task._id} title={task?.taskTitle} date={task?.taskDate} key={index} />
+                        // console.log("this is task", task._id)
+
                     )
                     )
                 }
