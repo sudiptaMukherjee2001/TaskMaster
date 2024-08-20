@@ -12,7 +12,6 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 
     '& .MuiDialog-paper': {
-        padding: "1.3rem",
         // border: "2px solid red",
         margin: "auto",
     },
@@ -34,7 +33,20 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
             borderBottom: "none"
         },
 
+    },
+
+
+    "& .form_control": {
+        borderWidth: "1.3px",
+        borderColor: '#1e293b !important',
+        marginBottom: "1rem",
+        paddingBlock: "0.6rem",
+        paddingLeft: "0.3rem",
+        borderRadius: "0.1rem"
+
     }
+
+
 
 }));
 
