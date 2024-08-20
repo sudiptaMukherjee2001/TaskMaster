@@ -6,8 +6,8 @@ const CustomBtn = ({ children, variant, onClick, textColor, bgColor }) => {
         <CustomButton variant={variant}
             className='btn'
             onClick={onClick}
-            Fontcolor={textColor}
-            bgColor={bgColor}
+            fontcolor={textColor}
+            bgcolor={bgColor}
 
         >
             {children}

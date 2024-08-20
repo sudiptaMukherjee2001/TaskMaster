@@ -9,14 +9,17 @@ import CustomBtn from './CustomBtn';
 import { Box } from '@mui/material'
 
 
-const TaskSummary = () => {
+const TaskSummary = ({ title, date }) => {
+    console.log("this is title==>", title);
+    console.log("this is date==>", date);
+
     const pathname = usePathname();
 
 
     return (
         <TaskCardBox>
-            <Box>Task title</Box>
-            <Box>8-08-2024</Box>
+            <Box>{title}</Box>
+            <Box>{date}</Box>
             <Box className="btnAction">
                 {
                     pathname === "/" ?

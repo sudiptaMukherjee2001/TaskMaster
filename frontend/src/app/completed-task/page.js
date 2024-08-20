@@ -4,17 +4,22 @@ import TopRightBtn from '../components/TopRightBtn'
 import TaskSummary from '../components/TaskSummary'
 /* mui import */
 import { Grid } from '@mui/material'
-const CompletedTask = () => {
+import { getAllTask } from '@/utils/getAllTask.js'
+const CompletedTask = async () => {
+    const data = await getAllTask();
+
     return (
         <>
             <TopRightBtn openPopForAddTask={"Clear all"} />
             {/* task info component */}
             <section>
-                <TaskSummary />
+                {
+                    data.map((task, index) => (
+                        <TaskSummary title={task?.taskTitle} date={task?.taskDate} key={index} />
+                    )
+                    )
+                }
 
-
-                <TaskSummary />
-                <TaskSummary />
             </section>
         </>
     )

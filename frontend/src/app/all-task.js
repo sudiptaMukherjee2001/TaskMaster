@@ -3,18 +3,30 @@ import React from 'react'
 import TopRightBtn from './components/TopRightBtn'
 import TaskSummary from './components/TaskSummary'
 /* mui import */
-import { Grid } from '@mui/material'
 
-const AllTask = () => {
+/* api req func import */
+import { getAllTask } from "@/utils/getAllTask.js";
+
+
+const AllTask = async () => {
+    const data = await getAllTask();
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
+
     return (
         <>
 
             <TopRightBtn openPopForAddTask={"Create task"} />
             {/* task info component */}
             <section>
-                <TaskSummary />
-                <TaskSummary />
-                <TaskSummary />
+                {
+                    data.map((task, index) => (
+                        <TaskSummary title={task?.taskTitle} date={task?.taskDate} key={index} />
+                    )
+                    )
+                }
+
             </section>
         </>
     )
