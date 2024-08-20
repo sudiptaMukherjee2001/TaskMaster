@@ -6,7 +6,11 @@ export const handelUpdateTask = async (req, res) => {
     console.log("Request ==>", req.body);
 
     try {
-        const updatedTask = await task_creation.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedTask = await task_creation.findByIdAndUpdate(id,
+            {
+                $set: req.body
+            }
+            , { new: true });
         console.log("updated Task==>", updatedTask);
 
         if (!updatedTask) return res.status(404).json({ error: 'task not found' });

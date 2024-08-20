@@ -9,6 +9,10 @@ const taskArr = new Schema(
         taskPriority: {
             type: String,
             required: true
+        },
+        istaskCompleted: {
+            type: Boolean,
+            required: true
         }
     });
 const taskschema = new Schema(
