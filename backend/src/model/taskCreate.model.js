@@ -12,7 +12,7 @@ const taskArr = new Schema(
         },
         istaskCompleted: {
             type: Boolean,
-            required: true
+            // required: true
         }
     });
 const taskschema = new Schema(
