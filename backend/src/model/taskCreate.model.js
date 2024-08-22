@@ -8,7 +8,7 @@ const taskArr = new Schema(
         },
         taskPriority: {
             type: String,
-            required: true
+            // required: true
         },
         istaskCompleted: {
             type: Boolean,
