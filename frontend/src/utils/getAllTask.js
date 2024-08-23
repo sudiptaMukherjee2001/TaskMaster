@@ -8,6 +8,16 @@ export const getAllTask = async () => {
         console.error("get api is not working ... Check the try block===>", error.message);
 
     }
+}
+export const getPerticularTask = async (id) => {
+    console.log("this is id from per", id);
 
+    try {
+        const perticularTask = await axios.get(`http://localhost:8001/api/v1/task/${id}`);
+        return perticularTask.data;
 
+    } catch (error) {
+        console.error(" getPerticularTask api is not working ... Check the try block===>", error.message);
+
+    }
 }

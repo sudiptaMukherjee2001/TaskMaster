@@ -3,6 +3,7 @@ import "./globals.css";
 /* Component import */
 import Navbar from "./components/Navbar.jsx";
 import { Grid } from "@mui/material";
+import { TaskProvider } from "@/lib/contextApi";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,11 @@ export default function RootLayout({ children }) {
             <Navbar />
           </Grid>
           <Grid item md={9} lg={9} border={"2px solid red"}>
-            {children}
+            <TaskProvider>
+
+              {children}
+
+            </TaskProvider>
           </Grid>
 
         </Grid>

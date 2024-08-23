@@ -10,14 +10,17 @@ import CustomBtn from './CustomBtn'
 const TopRightBtn = ({ openPopForAddTask }) => {
     const [open, setOpen] = React.useState(false);
     const handelFunc = () => {
+        setOpen(!open);
+        /*   
+        no needed
         if (openPopForAddTask === "Create task") {
-            console.log("inside if");
             setOpen(!open);
-        }
-        if (openPopForAddTask === "Clear all") {
-            console.log("inside if");
-            setOpen(!open);
-        }
+              console.log("inside if");
+          }
+          if (openPopForAddTask === "Clear all") {
+              console.log("inside if");
+              setOpen(!open);
+          } */
     }
     return (
         <>

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { BootstrapDialog, CustomBox } from '../style/DialogBox.style';
 import DialogActions from '@mui/material/DialogActions';
@@ -11,33 +12,62 @@ import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { createTaskReq } from '@/utils/createTaskReq';
 import { format } from 'date-fns';
-const DialogBox = ({ setOpen }) => {
+import { updateTaskReq } from '@/utils/updateTaskReq';
+const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext }) => {
+    console.log('====================================');
+    console.log("inside dialog==>", isEditable);
+    console.log('====================================');
 
     const handleClose = () => {
         setOpen(false);
+
     };
 
-    const validationSchema = yup.object({
+    // Validation schema for creating a new task
+    const createTaskValidationSchema = yup.object({
         taskTitle: yup.string('Enter task title').required('Task title is required'),
         taskDate: yup.string('Select the date').required('Date is required'),
         taskname: yup.string('Enter task name').required('Task name is required'),
-
     });
+
+    // Validation schema for updating an existing task
+    const updateTaskValidationSchema = yup.object({
+        taskTitle: yup.string('Enter task title').optional(),
+        taskDate: yup.string('Select the date').optional(),
+        taskname: yup.string('Enter task name').optional(),
+    });
+
+    const validationSchema = isEditable ? updateTaskValidationSchema : createTaskValidationSchema;
 
 
     /* Whatever field name we have given while making our model same name we should give in initialvalue also... it is  mandatoryy */
     const formik = useFormik({
         initialValues: {
-            taskTitle: '',
+            /* taskTitle: '',
             taskDate: format(new Date(), 'MMM d yyyy'),
-            taskInfo: [],
+            taskInfo: [], */
+            taskTitle: isEditable ? taskDataInContext.taskTitle : '',
+            taskDate: isEditable ? taskDataInContext.taskDate : format(new Date(), 'MMM d yyyy'),
+            taskInfo: isEditable ? taskDataInContext.taskInfo : [],
         },
         validationSchema,
         onSubmit: async (values) => {
+            // Debugging: Check if `isEditable` is set correctly
+            console.log('isEditable:', isEditable);
             try {
                 values.taskDate = format(values.taskDate, 'MMM d yyyy'); // Ensure the selected date is formatted consistently
-                await createTaskReq(values);
-                console.log("This is dialog box values:", values);
+                console.log('Task Data:', values);
+                if (isEditable) {
+                    console.log('====================================');
+                    console.log("indside isEditable", isEditable);
+                    console.log('====================================');
+                    await updateTaskReq(perticulerTaskId, values);
+                    alert("Task updated successfully!");
+                } else {
+
+                    await createTaskReq(values);
+                }
+                // console.log("This is dialog box values:", values);
                 // You can also add logic to handle success, such as showing a success message
             } catch (error) {
                 console.error("Failed to create task:", error);
@@ -62,7 +92,7 @@ const DialogBox = ({ setOpen }) => {
     };
 
     const handlePriorityChange = (id, value) => {
-        console.log("this is selected value==>", value);
+        // console.log("this is selected value==>", value);
 
         const updatePriority = formik.values.taskInfo.map((task) => {
             return (
@@ -71,6 +101,10 @@ const DialogBox = ({ setOpen }) => {
         })
         formik.setFieldValue("taskInfo", updatePriority);
     }
+
+
+    /* Fetched the perticular task infor by id for editing */
+
 
 
     return (
@@ -160,7 +194,7 @@ const DialogBox = ({ setOpen }) => {
                 </DialogContent>
             </FormikProvider>
             <DialogActions>
-                <CustomBtn variant="outlined" onClick={handleClose} textColor="#ffedd5" bgColor="#0f172a">Close</CustomBtn>
+                <CustomBtn variant="outlined" onClick={handleClose} textColor="#ffedd5" bgColor="#0f172a" >Close</CustomBtn>
                 <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="#0f172a" onClick={formik.handleSubmit}>Save task</CustomBtn>
             </DialogActions>
         </BootstrapDialog>

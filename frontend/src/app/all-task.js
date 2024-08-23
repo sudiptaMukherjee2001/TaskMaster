@@ -10,8 +10,9 @@ import { getAllTask } from "@/utils/getAllTask.js";
 
 const AllTask = async () => {
     const data = await getAllTask();
+
     console.log('====================================');
-    console.log(data);
+    console.log("All data from getall task api===>", data);
     console.log('====================================');
 
     return (
@@ -22,9 +23,12 @@ const AllTask = async () => {
             <section>
                 {
                     data?.map((task, index) => (
-                        <TaskSummary id={task._id} title={task?.taskTitle} date={task?.taskDate} key={index} />
+                        <TaskSummary id={task._id}
+                            title={task?.taskTitle}
+                            date={task?.taskDate}
+                            key={index}
+                            data={data} />
                         // console.log("this is task", task._id)
-
                     )
                     )
                 }
