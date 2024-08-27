@@ -15,7 +15,7 @@ import { format } from 'date-fns';
 import { updateTaskReq } from '@/utils/updateTaskReq';
 const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext }) => {
     console.log('====================================');
-    console.log("inside dialog==>", isEditable);
+    console.log("inside dialog==>", taskDataInContext);
     console.log('====================================');
 
     const handleClose = () => {
@@ -48,7 +48,9 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
             taskInfo: [], */
             taskTitle: isEditable ? taskDataInContext.taskTitle : '',
             taskDate: isEditable ? taskDataInContext.taskDate : format(new Date(), 'MMM d yyyy'),
+
             taskInfo: isEditable ? taskDataInContext.taskInfo : [],
+
         },
         validationSchema,
         onSubmit: async (values) => {
@@ -158,11 +160,11 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
                                     return (
                                         <Box className="task_with_check_box" key={taskInfo?.id}>
                                             <section>
-                                                <Field type="checkbox"
+                                                {/*  <Field type="checkbox"
                                                     name={`istaskCompleted`}
                                                     onChange={() => handleToggleChange(taskInfo?.id)}
                                                     checked={taskInfo?.istaskCompleted}
-                                                />
+                                                /> */}
                                                 {taskInfo?.taskname}
                                             </section>
 
@@ -195,7 +197,11 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
             </FormikProvider>
             <DialogActions>
                 <CustomBtn variant="outlined" onClick={handleClose} textColor="#ffedd5" bgColor="#0f172a" >Close</CustomBtn>
-                <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="#0f172a" onClick={formik.handleSubmit}>Save task</CustomBtn>
+                <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="#0f172a" onClick={formik.handleSubmit}>
+                    {
+                        isEditable ? "Save task" : " Create task"
+                    }
+                </CustomBtn>
             </DialogActions>
         </BootstrapDialog>
     );
