@@ -15,7 +15,7 @@ import { format } from 'date-fns';
 import { updateTaskReq } from '@/utils/updateTaskReq';
 const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext }) => {
     console.log('====================================');
-    console.log("inside dialog==>", taskDataInContext);
+    console.log("taskDataInContext==>", taskDataInContext);
     console.log('====================================');
 
     const handleClose = () => {
@@ -35,6 +35,7 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
         taskTitle: yup.string('Enter task title').optional(),
         taskDate: yup.string('Select the date').optional(),
         taskname: yup.string('Enter task name').optional(),
+        eachTask: yup.string().optional()
     });
 
     const validationSchema = isEditable ? updateTaskValidationSchema : createTaskValidationSchema;
@@ -104,6 +105,7 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
         formik.setFieldValue("taskInfo", updatePriority);
     }
 
+    console.log("taskDataInContext.taskInfo==>", taskDataInContext?.taskInfo);
 
     /* Fetched the perticular task infor by id for editing */
 
@@ -139,24 +141,29 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
 
                     <CustomBox>
                         <Box className="input_save_task_btn">
-                            <TextField
-                                id="standard-basic"
-                                variant="standard"
-                                fullWidth
-                                placeholder='Enter your task'
-                                name='taskname'
-                                value={formik.values.taskInfo.taskname}
-                                onChange={formik.handleChange}
-                                error={formik.touched.taskname && Boolean(formik.errors.taskname)}
-                                helperText={formik.touched.taskname && formik.errors.taskname}
-
-
-                            />
-                            <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="#0f172a" onClick={handelAddTask}>Add task</CustomBtn>
+                            {
+                                !isEditable &&
+                                <>
+                                    <TextField
+                                        id="standard-basic"
+                                        variant="standard"
+                                        fullWidth
+                                        placeholder='Enter your task'
+                                        name='taskname'
+                                        value={formik.values.taskInfo.taskname}
+                                        onChange={formik.handleChange}
+                                        error={formik.touched.taskname && Boolean(formik.errors.taskname)}
+                                        helperText={formik.touched.taskname && formik.errors.taskname}
+                                    />
+                                    <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="#0f172a" onClick={handelAddTask}>Add task</CustomBtn>
+                                </>
+                            }
                         </Box>
                         <Box className="task_con">
                             {
                                 formik.values?.taskInfo?.map((taskInfo, index) => {
+                                    console.log("inside taskinfo==>==>>", taskInfo);
+
                                     return (
                                         <Box className="task_with_check_box" key={taskInfo?.id}>
                                             <section>
@@ -165,23 +172,41 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
                                                     onChange={() => handleToggleChange(taskInfo?.id)}
                                                     checked={taskInfo?.istaskCompleted}
                                                 /> */}
-                                                {taskInfo?.taskname}
+                                                {isEditable ?
+                                                    <TextField
+                                                        id="standard-basic"
+                                                        variant="standard"
+                                                        fullWidth
+                                                        placeholder='Enter your task'
+                                                        name={`taskInfo[${index}].taskname`}  // Reference the specific task's name in the array
+                                                        value={formik.values.taskInfo[index]?.taskname}  // Bind to the correct array index
+                                                        onChange={formik.handleChange}
+                                                        error={formik.touched.taskInfo?.[index]?.taskname && Boolean(formik.errors.taskInfo?.[index]?.taskname)}
+                                                        helperText={formik.touched.taskInfo?.[index]?.taskname && formik.errors.taskInfo?.[index]?.taskname}
+
+                                                    />
+                                                    : taskInfo?.taskname
+                                                }
+
                                             </section>
+                                            {!isEditable &&
+                                                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                                                    <Field as="select"
+                                                        name={`taskPriority`}
+                                                        value={formik.values.taskInfo.taskPriority}
+                                                        onChange={(e) => handlePriorityChange(taskInfo?.id, e.target.value)}
 
-                                            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                                                <Field as="select"
-                                                    name={`taskPriority`}
-                                                    value={formik.values.taskInfo.taskPriority}
-                                                    onChange={(e) => handlePriorityChange(taskInfo?.id, e.target.value)}
+                                                    >
+                                                        <option value="">Choose Priority</option>
+                                                        <option value="High">High</option>
+                                                        <option value="Medium">Medium</option>
+                                                        <option value="Low">Low</option>
+                                                    </Field>
 
-                                                >
-                                                    <option value="">Choose Priority</option>
-                                                    <option value="High">High</option>
-                                                    <option value="Medium">Medium</option>
-                                                    <option value="Low">Low</option>
-                                                </Field>
+                                                </FormControl>
+                                            }
 
-                                            </FormControl>
+
                                         </Box>
 
 
