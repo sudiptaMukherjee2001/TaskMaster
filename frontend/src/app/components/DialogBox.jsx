@@ -164,6 +164,8 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
                                 formik.values?.taskInfo?.map((taskInfo, index) => {
                                     console.log("inside taskinfo==>==>>", taskInfo);
 
+
+
                                     return (
                                         <Box className="task_with_check_box" key={taskInfo?.id}>
                                             <section>
