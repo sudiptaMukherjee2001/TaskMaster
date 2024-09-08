@@ -1,9 +1,10 @@
+// app/layout.js
 import { Inter } from "next/font/google";
-import "./globals.css";
-/* Component import */
-import Navbar from "./components/Navbar.jsx";
-import { Grid } from "@mui/material";
 import { TaskProvider } from "@/lib/contextApi";
+import "./globals.css";
+import NavbarWrapper from "./components/NavbarWrapper";
+import { Grid } from "@mui/material";
+import { mobileNavbarHeight } from "@/lib/height.js";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,20 +17,55 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Grid container>
-          <Grid item lg={3}>
 
-            <Navbar />
+
+        <Grid
+          container
+          spacing={1}
+          border={"2px solid blue"}
+          justifyContent={"center"}
+          sx={{
+            height: {
+              xs: `calc(100vh - ${mobileNavbarHeight})`, // Apply for mobile (xs)
+              sm: 'auto', // Use default height for larger screens
+            },
+          }}        >
+          <Grid item
+            xs={10}
+            sm={4}
+            lg={3}
+            order={{ xs: 2, sm: 1, md: 1 }}>
+
+            <NavbarWrapper />
           </Grid>
-          <Grid item md={9} lg={9} border={"2px solid red"}>
+          <Grid item
+            xs={12}
+            sm={8}
+            md={7}
+            lg={8}
+            border={"4px solid orange"}
+            order={{ xs: 1, sm: 2, md: 2 }}
+            sx={{
+              height: {
+                xs: '100%', // Full height for mobile
+              },
+              overflow: {
+                xs: 'scroll', // Enable scrolling for mobile if content overflows
+                sm: "hidden"
+              },
+            }}
+
+          >
             <TaskProvider>
+
 
               {children}
 
+
             </TaskProvider>
           </Grid>
-
         </Grid>
+
       </body>
     </html>
   );

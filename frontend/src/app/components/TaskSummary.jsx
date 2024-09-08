@@ -10,12 +10,15 @@ import { Box } from '@mui/material'
 import DialogBox from './DialogBox';
 import { getPerticularTask } from '@/utils/getAllTask.js';
 import { useTaskContext } from '@/lib/contextApi.js';
+import useResponsive from '@/lib/allMediaQuery.js';
 
 
 const TaskSummary = ({ id, title, date }) => {
     const [openEditDialog, setOpen] = useState(false);
     const [isEditable, setEditable] = useState(false);
     const { taskData, setTaskData } = useTaskContext()
+    const { isMobile } = useResponsive();
+
 
     // console.log("this is date==>", date);
 
@@ -44,9 +47,10 @@ const TaskSummary = ({ id, title, date }) => {
 
     return (
         <>
-            <TaskCardBox>
-                <Box>{title}</Box>
-                <Box>{date}</Box>
+            <TaskCardBox isMobile={isMobile}>
+                {/* <Box>{title}</Box> */}
+
+                <Box>Task date : {date}</Box>
                 <Box className="btnAction">
                     {
                         pathname === "/" ?
