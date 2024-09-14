@@ -20,7 +20,14 @@ const AllTask = async () => {
 
             <TopRightBtn openPopForAddTask={"Create task"} />
             {/* task info component */}
-            <section>
+            <section style={{
+                // border: "5px solid red",
+                // display: "flex",
+                // flexDirection: "column",
+                // justifyContent: "center",
+                // alignItems: "center",
+                // position: "relative"
+            }}>
                 {
                     data?.map((task, index) => (
                         <TaskSummary id={task._id}
@@ -32,6 +39,7 @@ const AllTask = async () => {
                     )
                     )
                 }
+
 
             </section>
         </>

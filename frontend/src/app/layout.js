@@ -24,6 +24,8 @@ export default function RootLayout({ children }) {
           spacing={1}
           border={"2px solid blue"}
           justifyContent={"center"}
+          // position={"relative"}
+          // overflow={'auto'}
           sx={{
             height: {
               xs: `calc(100vh - ${mobileNavbarHeight})`, // Apply for mobile (xs)
@@ -44,6 +46,7 @@ export default function RootLayout({ children }) {
             md={7}
             lg={8}
             border={"4px solid orange"}
+
             order={{ xs: 1, sm: 2, md: 2 }}
             sx={{
               height: {

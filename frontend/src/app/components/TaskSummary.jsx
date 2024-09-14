@@ -11,10 +11,12 @@ import DialogBox from './DialogBox';
 import { getPerticularTask } from '@/utils/getAllTask.js';
 import { useTaskContext } from '@/lib/contextApi.js';
 import useResponsive from '@/lib/allMediaQuery.js';
+import TaskViewBox from './TaskViewBox.jsx';
 
 
 const TaskSummary = ({ id, title, date }) => {
     const [openEditDialog, setOpen] = useState(false);
+    const [openViewDialog, setOpenViewBox] = useState(false);
     const [isEditable, setEditable] = useState(false);
     const { taskData, setTaskData } = useTaskContext()
     const { isMobile } = useResponsive();
@@ -44,6 +46,14 @@ const TaskSummary = ({ id, title, date }) => {
         setOpen(!openEditDialog); // Open the dialog only after data fetching is complete
     }
 
+    /* Dialog box for View */
+    const openDialogBoxForView = async () => {
+        setEditable(true); // Set the editable state to true
+        await handelupdateTaskReq(); // Fetch task data asynchronously
+        console.log("this is value for isEditable==>", isEditable);
+        setOpenViewBox(!openViewDialog); // Open the dialog only after data fetching is complete
+    }
+
 
     return (
         <>
@@ -60,7 +70,14 @@ const TaskSummary = ({ id, title, date }) => {
                             : ""
                     }
                     <Box>
-                        <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">View</CustomBtn>
+                        <CustomBtn
+                            variant="outlined"
+                            textColor="#ffedd5"
+                            bgColor="rgba(238, 242, 255, 0.14)"
+                            onClick={openDialogBoxForView}
+                        >
+                            View
+                        </CustomBtn>
                     </Box>
                     <Box>
                         <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">Delete</CustomBtn>
@@ -70,6 +87,15 @@ const TaskSummary = ({ id, title, date }) => {
             {
                 openEditDialog && <DialogBox isEditable={isEditable} setOpen={setOpen} perticulerTaskId={id} taskDataInContext={taskData} />
             }
+
+
+            {
+                openViewDialog && <TaskViewBox isEditable={isEditable}
+                    setOpenViewBox={setOpenViewBox}
+                    perticulerTaskId={id}
+                    taskDataInContext={taskData} />
+            }
+
         </>
 
     )

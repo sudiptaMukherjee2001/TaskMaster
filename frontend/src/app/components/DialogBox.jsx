@@ -28,6 +28,8 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
         taskTitle: yup.string('Enter task title').required('Task title is required'),
         taskDate: yup.string('Select the date').required('Date is required'),
         taskname: yup.string('Enter task name').required('Task name is required'),
+
+
     });
 
     // Validation schema for updating an existing task
@@ -35,7 +37,8 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
         taskTitle: yup.string('Enter task title').optional(),
         taskDate: yup.string('Select the date').optional(),
         taskname: yup.string('Enter task name').optional(),
-        eachTask: yup.string().optional()
+        eachTask: yup.string().optional(),
+
     });
 
     const validationSchema = isEditable ? updateTaskValidationSchema : createTaskValidationSchema;
@@ -49,7 +52,6 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
             taskInfo: [], */
             taskTitle: isEditable ? taskDataInContext.taskTitle : '',
             taskDate: isEditable ? taskDataInContext.taskDate : format(new Date(), 'MMM d yyyy'),
-
             taskInfo: isEditable ? taskDataInContext.taskInfo : [],
 
         },
@@ -82,17 +84,11 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
     const handelAddTask = () => {
         formik.setFieldValue("taskInfo", [
             ...formik.values.taskInfo,
-            { id: formik.values.taskInfo.length + 1, taskname: formik.values.taskname, istaskCompleted: false }
+            { id: formik.values.taskInfo.length + 1, taskname: formik.values.taskname }
         ])
     }
 
-    const handleToggleChange = (id) => {
-        const updatedTasks = formik.values.taskInfo.map(task => {
-            return task.id === id ? { ...task, istaskCompleted: !task.istaskCompleted } : task
-        }
-        );
-        formik.setFieldValue("taskInfo", updatedTasks);
-    };
+
 
     const handlePriorityChange = (id, value) => {
         // console.log("this is selected value==>", value);

@@ -9,7 +9,7 @@ export const TaskCardBox = styled(Box)(({ isMobile }) => ({
     rowGap: `${isMobile ? "1rem" : "0px"}`,
     justifyContent: "space-between",
     padding: `${isMobile ? "0.6rem" : "1rem"}`,
-    // width: "100%",
+    width: "100%",
     borderRadius: "0.4rem",
     marginInline: `${isMobile ? "0.7rem" : "1rem"}`,
     marginBottom: "1.4rem",

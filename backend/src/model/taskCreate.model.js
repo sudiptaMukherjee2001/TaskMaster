@@ -12,6 +12,7 @@ const taskArr = new Schema(
         },
         istaskCompleted: {
             type: Boolean,
+            default: false,
             // required: true
         }
     });
@@ -24,7 +25,9 @@ const taskschema = new Schema(
             type: String,
             required: true
         },
-        taskInfo: [taskArr]
+        taskInfo: [taskArr],
+
+
     },
     {
         timestamps: true, // Enable timestamps
