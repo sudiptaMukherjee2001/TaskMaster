@@ -33,9 +33,9 @@ const TaskSummary = ({ id, title, date }) => {
         const fetchPerticularTaskInfo = await getPerticularTask(id);
         // console.log("fetched perticular task", fetchPerticularTaskInfo);
         setTaskData({
-            taskTitle: fetchPerticularTaskInfo.taskTitle,
-            taskDate: fetchPerticularTaskInfo.taskDate,
-            taskInfo: fetchPerticularTaskInfo.taskInfo
+            taskTitle: fetchPerticularTaskInfo?.taskTitle,
+            taskDate: fetchPerticularTaskInfo?.taskDate,
+            taskInfo: fetchPerticularTaskInfo?.taskInfo
         });
     }
 
@@ -90,7 +90,7 @@ const TaskSummary = ({ id, title, date }) => {
 
 
             {
-                openViewDialog && <TaskViewBox isEditable={isEditable}
+                openViewDialog && <TaskViewBox
                     setOpenViewBox={setOpenViewBox}
                     perticulerTaskId={id}
                     taskDataInContext={taskData} />

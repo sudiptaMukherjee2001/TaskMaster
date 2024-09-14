@@ -15,7 +15,7 @@ const CompletedTask = async () => {
             <section>
                 {
                     data?.map((task, index) => (
-                        <TaskSummary title={task?.taskTitle} date={task?.taskDate} key={index} />
+                        <TaskSummary id={task._id} title={task?.taskTitle} date={task?.taskDate} key={index} />
                     )
                     )
                 }

@@ -7,9 +7,11 @@ import Checkbox from '@mui/material/Checkbox';
 import CustomBtn from './CustomBtn';
 import { updateTaskReq } from '@/utils/updateTaskReq.js';
 import { useTaskContext } from '@/lib/contextApi.js';
-
+import { usePathname } from 'next/navigation'
 const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) => {
     const { taskData, setTaskData } = useTaskContext()
+    const path = usePathname();
+    console.log("path name==>", path);
 
     const closeModal = () => {
         setOpenViewBox(false);
@@ -18,7 +20,7 @@ const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) =>
     // console.log("====taskDataInContext in view box====");
     // console.log(taskDataInContext)
     // console.log("=============================================");
-    const { taskTitle, taskDate } = taskDataInContext;
+    const { taskTitle, taskDate, taskInfo } = taskDataInContext;
     const handelCheckbox = async (e, index) => {
         // console.log("checkbox clicked", e);
         console.log("index comming", index);
@@ -50,7 +52,10 @@ const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) =>
         await updateTaskReq(perticulerTaskId, values);
 
 
+
     }
+    const isTaskCompletedArr = taskInfo.map((task) => task.istaskCompleted);
+    console.log("Is task complete:", isTaskCompletedArr);
     return (
         <TaskViewBoxCon>
             <Box className="task_title task_Info">
@@ -83,10 +88,82 @@ const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) =>
             </Box>
             {/* Each task with checkbox */}
             <Box className="all_task">
+                {
+                    path === "/completed-task" ?
+                        (
+                            /*If User has  complete any one task or user does not complete any task then below content  will display accordingly */
+                            taskDataInContext?.taskInfo?.some(task => task.istaskCompleted) ?
+                                taskDataInContext?.taskInfo?.map((task, index) => (
+                                    task.istaskCompleted ? (
+                                        <Box className="task_names" key={index}>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={task.istaskCompleted}
+
+                                                    />
+                                                }
+                                            />
+                                            <Box className="tasks">
+                                                <Typography variant="h5" color="initial">
+                                                    {task?.taskname}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                    ) : null
+                                ))
+                                :
+                                <Typography variant="h5" color="initial">You have not completed any tasks</Typography>
+                        )
+                        :
+                        taskDataInContext?.taskInfo?.map((task, index) => (
+                            <Box className="task_names" key={index}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={task.istaskCompleted}
+                                            onChange={(e) => handelCheckbox(e, index)}
+                                        />
+                                    }
+                                />
+                                <Box className="tasks">
+                                    <Typography variant="h5" color="initial">
+                                        {task?.taskname}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        ))
+                }
+
+
+
+
 
                 {
-                    taskDataInContext?.taskInfo.map((task, index) => (
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    // isTaskCompletedArr.map((taskStatus, index) => (
+                    //     taskStatus === false ?
+                    //         "You have not" : ""
+
+                    // ))
+                }
+
+                {/*   taskDataInContext?.taskInfo?.map((task, index) => (
                         <Box className="task_names" key={index}>
                             <FormControlLabel control={<Checkbox
                                 checked={task.istaskCompleted}
@@ -102,8 +179,8 @@ const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) =>
 
                         </Box>
 
-                    ))
-                }
+                    )) */}
+
             </Box>
 
             <Box className="Btn_Sec">

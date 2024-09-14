@@ -34,7 +34,7 @@ const AllTask = async () => {
                             title={task?.taskTitle}
                             date={task?.taskDate}
                             key={index}
-                            data={data} />
+                        />
                         // console.log("this is task", task._id)
                     )
                     )
