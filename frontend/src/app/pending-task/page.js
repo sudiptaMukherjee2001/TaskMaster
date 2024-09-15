@@ -1,12 +1,15 @@
+'use client'
 import React from 'react'
 /* Component import */
 import TopRightBtn from '../components/TopRightBtn'
 import TaskSummary from '../components/TaskSummary'
 /* mui import */
-import { Grid } from '@mui/material'
 import { getAllTask } from '@/utils/getAllTask.js'
-const CompletedTask = async () => {
+import { format } from 'date-fns';
+const PendingTaskPage = async () => {
     const data = await getAllTask();
+    const presentDate = format(new Date(), 'MMM d yyyy');
+    console.log("today's date==>", presentDate);
 
     return (
         <>
@@ -15,7 +18,7 @@ const CompletedTask = async () => {
             <section>
                 {
                     data?.map((task, index) => (
-                        <TaskSummary id={task._id} title={task?.taskTitle} date={task?.taskDate} key={index} />
+                        <TaskSummary data={data} id={task._id} title={task?.taskTitle} date={task?.taskDate} key={index} presentDate={presentDate} />
 
                     )
                     )
@@ -26,4 +29,4 @@ const CompletedTask = async () => {
     )
 }
 
-export default CompletedTask
+export default PendingTaskPage

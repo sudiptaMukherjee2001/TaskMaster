@@ -24,7 +24,7 @@ const Navbar = ({ mobile, desktop }) => {
     const listInfo = [
         { id: 1, name: "All task", icon: ListAltIcon, link: "/" },
         { id: 2, name: "Completed task", icon: FactCheckIcon, link: "/completed-task" },
-        { id: 3, name: "Pending task", icon: PendingActionsIcon, link: "#" },
+        { id: 3, name: "Pending task", icon: PendingActionsIcon, link: "/pending-task" },
         { id: 4, name: "Analytics", icon: InsertChartIcon, link: "#" },
     ];
 

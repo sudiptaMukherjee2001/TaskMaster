@@ -54,8 +54,8 @@ const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) =>
 
 
     }
-    const isTaskCompletedArr = taskInfo.map((task) => task.istaskCompleted);
-    console.log("Is task complete:", isTaskCompletedArr);
+    console.log("taskDataInContext===>", taskDataInContext);
+
     return (
         <TaskViewBoxCon>
             <Box className="task_title task_Info">
@@ -134,53 +134,6 @@ const TaskViewBox = ({ setOpenViewBox, taskDataInContext, perticulerTaskId }) =>
                             </Box>
                         ))
                 }
-
-
-
-
-
-                {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    // isTaskCompletedArr.map((taskStatus, index) => (
-                    //     taskStatus === false ?
-                    //         "You have not" : ""
-
-                    // ))
-                }
-
-                {/*   taskDataInContext?.taskInfo?.map((task, index) => (
-                        <Box className="task_names" key={index}>
-                            <FormControlLabel control={<Checkbox
-                                checked={task.istaskCompleted}
-                                onChange={(e) => handelCheckbox(e, index)} />} />
-                            <Box
-                                className="tasks"
-                            >
-                                <Typography variant="h5" color="initial">
-                                    {task?.taskname}
-                                </Typography>
-
-                            </Box>
-
-                        </Box>
-
-                    )) */}
-
             </Box>
 
             <Box className="Btn_Sec">
