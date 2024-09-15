@@ -9,7 +9,7 @@ import { format } from 'date-fns';
 const PendingTaskPage = async () => {
     const data = await getAllTask();
     const presentDate = format(new Date(), 'MMM d yyyy');
-    console.log("today's date==>", presentDate);
+    // console.log("today's date type==>", typeof presentDate);
 
     return (
         <>
@@ -23,6 +23,7 @@ const PendingTaskPage = async () => {
                     )
                     )
                 }
+
 
             </section>
         </>

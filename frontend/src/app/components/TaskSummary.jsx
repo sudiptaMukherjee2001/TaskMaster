@@ -26,8 +26,7 @@ const TaskSummary = ({ id, title, date, presentDate, data }) => {
     console.log(" presentDate > date", presentDate > date);
 
     const pathname = usePathname();
-    let perticularTaskInfo;
-    let isSomeTrue;
+
     let fetchPerticularTaskInfo;
 
     /* this handelStoreTaskDeatilsInContext func will store the task datas in context */
@@ -82,49 +81,36 @@ const TaskSummary = ({ id, title, date, presentDate, data }) => {
         <>
             {
 
-                pathname === "/pending-task" ?
+                pathname === "/pending-task"
+                    ?
 
                     (presentDate > date)
                         ?
                         // below some will give true if any one has not complete
-                        data?.map(task => {
-                            // task?.taskInfo?.some(info => info.istaskCompleted == false)
-                            console.log("Task inside foreach==>", task?.taskInfo);
-                            isSomeTrue = task?.taskInfo?.some(info => info.istaskCompleted == false);
-                            console.log("this is some value==>", isSomeTrue);
-                            return isSomeTrue ?
-                                <TaskCardBox isMobile={isMobile}>
-                                    {/* <Box>{title}</Box> */}
+                        data?.filter((task) =>
+                            new Date(presentDate) > new Date(task.taskDate) && task.taskInfo?.some((info) => info.istaskCompleted === false))
 
+                            .map(task => (
+
+
+
+                                <TaskCardBox isMobile={isMobile}>
                                     <Box>Task date : {task?.taskDate}</Box>
                                     <Box className="btnAction">
-                                        {
-                                            pathname === "/" ?
-                                                <Box>
-                                                    <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)" onClick={openDialogBoxForEdit}>Edit</CustomBtn>
-                                                </Box>
-                                                : ""
-                                        }
-                                        <Box>
-                                            <CustomBtn
-                                                variant="outlined"
-                                                textColor="#ffedd5"
-                                                bgColor="rgba(238, 242, 255, 0.14)"
-                                                onClick={() => openDialogBoxForViewForPendingSec(task)}
-                                            >
-                                                View
-                                            </CustomBtn>
-                                        </Box>
-                                        <Box>
-                                            <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">Delete</CustomBtn>
-                                        </Box>
+                                        <CustomBtn
+                                            variant="outlined"
+                                            textColor="#ffedd5"
+                                            bgColor="rgba(238, 242, 255, 0.14)"
+                                            onClick={() => openDialogBoxForViewForPendingSec(task)}
+                                        >
+                                            View
+                                        </CustomBtn>
                                     </Box>
                                 </TaskCardBox>
-                                : ""
-                        })
+                            ))
+
 
                         : null
-
                     :
                     // below code will run if path is not /pending-task
                     <TaskCardBox isMobile={isMobile}>
@@ -155,9 +141,10 @@ const TaskSummary = ({ id, title, date, presentDate, data }) => {
                         </Box>
                     </TaskCardBox>
 
-
-
             }
+
+            {/* below code will run if path is not /pending-task */}
+
 
 
 

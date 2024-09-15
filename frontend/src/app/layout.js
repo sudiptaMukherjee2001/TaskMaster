@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
             sm={8}
             md={7}
             lg={8}
-            border={"4px solid orange"}
+            border={"4px solid blue"}
 
             order={{ xs: 1, sm: 2, md: 2 }}
             sx={{
