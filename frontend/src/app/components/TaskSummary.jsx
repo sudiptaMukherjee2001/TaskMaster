@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { usePathname } from 'next/navigation'
 /* Stlyed component */
@@ -14,7 +14,7 @@ import useResponsive from '@/lib/allMediaQuery.js';
 import TaskViewBox from './TaskViewBox.jsx';
 
 
-const TaskSummary = ({ id, title, date, presentDate, data }) => {
+const TaskSummary = ({ id, title, date, data, taskInfo }) => {
     const [openEditDialog, setOpen] = useState(false);
     const [openViewDialog, setOpenViewBox] = useState(false);
     const [isEditable, setEditable] = useState(false);
@@ -22,8 +22,6 @@ const TaskSummary = ({ id, title, date, presentDate, data }) => {
     const { isMobile } = useResponsive();
 
 
-    console.log("this is date==>", date);
-    console.log(" presentDate > date", presentDate > date);
 
     const pathname = usePathname();
 
@@ -55,95 +53,40 @@ const TaskSummary = ({ id, title, date, presentDate, data }) => {
         console.log("this is value for isEditable==>", isEditable);
         setOpenViewBox(!openViewDialog); // Open the dialog only after data fetching is complete
     }
-    const openDialogBoxForViewForPendingSec = async (task) => {
-        setEditable(true); // Set the editable state to true
-        await handelStorePendingSecTaskDeatilsInContext(task); // Fetch task data asynchronously
-        console.log("this is value for isEditable==>", isEditable);
-        setOpenViewBox(!openViewDialog); // Open the dialog only after data fetching is complete
-    }
-    const handelStorePendingSecTaskDeatilsInContext = (task) => {
-
-        setTaskData({
-
-            taskTitle: task?.taskTitle,
-            taskDate: task?.taskDate,
-            taskInfo: task?.taskInfo
-        });
-    }
-
-
-
-
-
-
 
     return (
         <>
-            {
-
-                pathname === "/pending-task"
-                    ?
-
-                    (presentDate > date)
-                        ?
-                        // below some will give true if any one has not complete
-                        data?.filter((task) =>
-                            new Date(presentDate) > new Date(task.taskDate) && task.taskInfo?.some((info) => info.istaskCompleted === false))
-
-                            .map(task => (
 
 
 
-                                <TaskCardBox isMobile={isMobile}>
-                                    <Box>Task date : {task?.taskDate}</Box>
-                                    <Box className="btnAction">
-                                        <CustomBtn
-                                            variant="outlined"
-                                            textColor="#ffedd5"
-                                            bgColor="rgba(238, 242, 255, 0.14)"
-                                            onClick={() => openDialogBoxForViewForPendingSec(task)}
-                                        >
-                                            View
-                                        </CustomBtn>
-                                    </Box>
-                                </TaskCardBox>
-                            ))
 
+            <TaskCardBox isMobile={isMobile}>
+                {/* <Box>{title}</Box> */}
 
-                        : null
-                    :
-                    // below code will run if path is not /pending-task
-                    <TaskCardBox isMobile={isMobile}>
-                        {/* <Box>{title}</Box> */}
-
-                        <Box>Task date : {date}</Box>
-                        <Box className="btnAction">
-                            {
-                                pathname === "/" ?
-                                    <Box>
-                                        <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)" onClick={openDialogBoxForEdit}>Edit</CustomBtn>
-                                    </Box>
-                                    : ""
-                            }
+                <Box>Task date : {date}</Box>
+                <Box className="btnAction">
+                    {
+                        pathname === "/" ?
                             <Box>
-                                <CustomBtn
-                                    variant="outlined"
-                                    textColor="#ffedd5"
-                                    bgColor="rgba(238, 242, 255, 0.14)"
-                                    onClick={openDialogBoxForView}
-                                >
-                                    View
-                                </CustomBtn>
+                                <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)" onClick={openDialogBoxForEdit}>Edit</CustomBtn>
                             </Box>
-                            <Box>
-                                <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">Delete</CustomBtn>
-                            </Box>
-                        </Box>
-                    </TaskCardBox>
-
-            }
-
-            {/* below code will run if path is not /pending-task */}
+                            : ""
+                    }
+                    <Box>
+                        <CustomBtn
+                            variant="outlined"
+                            textColor="#ffedd5"
+                            bgColor="rgba(238, 242, 255, 0.14)"
+                            onClick={openDialogBoxForView}
+                        >
+                            View
+                        </CustomBtn>
+                    </Box>
+                    <Box>
+                        <CustomBtn variant="outlined" textColor="#ffedd5" bgColor="rgba(238, 242, 255, 0.14)">Delete</CustomBtn>
+                    </Box>
+                </Box>
+            </TaskCardBox>
 
 
 
