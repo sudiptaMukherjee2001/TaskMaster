@@ -30,15 +30,15 @@ export const useTaskAnalysis = () => {
 
 
             analysisData.map((info, index) => {
-                // console.log("analysisData  taskdcss:", info?.taskInfo.length);
+                console.log("this is the lenght", info?.taskInfo.length);
                 const taskDate = info?.taskDate;
                 if (!statusOfTaskCompletion[taskDate]) {
                     statusOfTaskCompletion[taskDate] = { TotalTask: 0, CompletionTask: 0 };
                 }
-                // finding total task for each date
-                const len = info?.taskInfo.length;
 
-                statusOfTaskCompletion[taskDate]?.TotalTask += len;
+
+                // finding total task for each date
+                statusOfTaskCompletion[taskDate].TotalTask += info?.taskInfo.length;
 
 
                 info?.taskInfo.map((task, index) => {
@@ -60,6 +60,10 @@ export const useTaskAnalysis = () => {
                         priorityCount[taskDate].none += 1;
                     }
                 });
+
+
+
+
                 console.log("============================")
                 console.log("statusOfTaskCompletion==>", statusOfTaskCompletion)
                 console.log("============================")
