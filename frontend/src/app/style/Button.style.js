@@ -1,15 +1,16 @@
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material'
-export const CustomButton = styled(Button)(({ theme, fontcolor, bgcolor, width }) => ({
+export const CustomButton = styled(Button)(({ theme, fontcolor, fontWeight, bgcolor, width }) => ({
 
 
     color: `${fontcolor}`,
-    backgroundColor: bgcolor,
+    backgroundColor: `${bgcolor}`,
     border: "1.2px solid #fca5a5",
     paddingInline: "1.3rem",
     fontFamily: "Rubik, cursive",
     fontWeight: 500,
     width: `${width ? "20%" : ''}`,
+    fontWeight: fontWeight,
     [theme.breakpoints.down('sm')]: {
         width: `${width ? "40%" : ''}`
     },

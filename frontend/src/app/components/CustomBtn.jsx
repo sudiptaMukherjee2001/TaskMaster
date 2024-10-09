@@ -1,7 +1,7 @@
 import React from 'react'
 import { CustomButton } from '../style/Button.style'
 
-const CustomBtn = ({ children, variant, onClick, textColor, bgColor, width }) => {
+const CustomBtn = ({ children, variant, onClick, textColor, bgColor, width, fontWeight }) => {
     return (
         <CustomButton variant={variant}
             className='btn'
@@ -9,6 +9,7 @@ const CustomBtn = ({ children, variant, onClick, textColor, bgColor, width }) =>
             fontcolor={textColor}
             bgcolor={bgColor}
             width={width}
+            fontWeight={fontWeight}
 
         >
             {children}
