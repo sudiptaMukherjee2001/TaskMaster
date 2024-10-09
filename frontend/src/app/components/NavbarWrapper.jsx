@@ -4,17 +4,23 @@
 import { Grid } from "@mui/material";
 import Navbar from "./Navbar.jsx";
 import useResponsive from "@/lib/allMediaQuery.js";
+import LargeScreenNavbar from "./LargeScreenNavbar.jsx";
 
 export default function NavbarWrapper() {
-    const { isMobile } = useResponsive();
+    const { isMobile, isSmallDevice, islaptop } = useResponsive();
+    console.log('====================================');
+    console.log("islaptop viewport==>", islaptop);
+    console.log('====================================');
+
     return (
         <>
             {/* Render different Navbars or handle visibility based on screen size */}
-            {isMobile ? (
-                <Navbar mobile /> /*  Optional prop to differentiate for mobile */
-            ) : (
-                <Navbar desktop />
-            )}
+            {
+                (!islaptop || islaptop)
+                &&
+                <LargeScreenNavbar />
+            }
+            {(!isSmallDevice || isSmallDevice) && <Navbar />}
         </>
     );
 }
