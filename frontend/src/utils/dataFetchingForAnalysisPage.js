@@ -4,7 +4,7 @@ import { getAllTask } from "./getAllTask.js";
 
 export const useTaskAnalysis = () => {
     const [analysisData, setAnalysisData] = useState(null);
-    const [taskPriorityNum, setTaskPriorityNum] = useState();
+    const [taskDataSummary, setTaskDataSummary] = useState();
 
     // Fetch data on component mount
     useEffect(() => {
@@ -50,7 +50,6 @@ export const useTaskAnalysis = () => {
                         priorityCount[taskDate] = { High: 0, medium: 0, low: 0, none: 0 };
                     }
                     if (task?.taskPriority == "High") {
-
                         priorityCount[taskDate].High += 1;
                     } else if (task?.taskPriority == "Medium") {
                         priorityCount[taskDate].medium += 1;
@@ -59,40 +58,55 @@ export const useTaskAnalysis = () => {
                     } else {
                         priorityCount[taskDate].none += 1;
                     }
+                    //calculate the how many task are Completed
+                    if (task?.istaskCompleted === true) {
+                        statusOfTaskCompletion[taskDate].CompletionTask += 1;
+                    }
+
                 });
 
 
 
 
-                console.log("============================")
-                console.log("statusOfTaskCompletion==>", statusOfTaskCompletion)
-                console.log("============================")
+                // console.log("============================")
+                // console.log("statusOfTaskCompletion==>", statusOfTaskCompletion)
+                // console.log("============================")
 
             });
-            setTaskPriorityNum(() => {
-                return { ...priorityCount }
+            setTaskDataSummary(() => {
+                return {
+                    priorityData: priorityCount,
+                    completionData: statusOfTaskCompletion
+                }
             });
         }
     }, [analysisData])
     console.log("--------------------------------------");
     console.log("analysisData:", analysisData);
     console.log("--------------------------------------");
+    console.log("--------------------------------------");
+    console.log("taskDataSummary:", taskDataSummary);
+    console.log("--------------------------------------");
 
     //extract the priority
-    const taskInfoArr = analysisData?.map((info) => {
+    const analysisStat = analysisData?.map((info) => {
         // console.log("info.taskInfo==>", info.taskInfo)
         return {
             date: info?.taskDate,
-            priority: taskPriorityNum ? taskPriorityNum[info?.taskDate] : { high: 0, medium: 0, low: 0, none: 0 }
+            priority: taskDataSummary ? taskDataSummary.priorityData[info?.taskDate] : { high: 0, medium: 0, low: 0, none: 0 },
+            TotalCompletionTask: taskDataSummary ? taskDataSummary.completionData[info?.taskDate] : { TotalTask: 0, CompletionTask: 0 },
+
         }
 
 
     })
 
 
-    // console.log("taskInfoArr retruned==>", taskInfoArr)// ['High', 'Medium', 'High', 'Low', 'false']
+    /* THIS taskInfoArr  IS THE FINAL DATA THAT WE WILL USE FOR THE CHART */
+    /* this analysisStat will give how manyn task are there in each priority and how many task are completed on a perticular date */
+    console.log("taskInfoArr retruned==>", analysisStat)// ['High', 'Medium', 'High', 'Low', 'false']
 
-    return taskInfoArr;
+    return analysisStat;
 }
 // console.log("fetchedData:", fetchedData);
 export const labelArr = ['High', 'Medium', 'Low', 'none'] // Add labels here

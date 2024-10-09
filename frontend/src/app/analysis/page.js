@@ -23,6 +23,7 @@ const page = () => {
     // ChartJS.register(ArcElement, Tooltip);
     const [OpenChartPage, setOpenChartPage] = useState(false);
     const [chartData, setChartData] = useState([])
+    const [PiechartData, setPieChartData] = useState([])
     ChartJS.register(ArcElement, CategoryScale,
         LinearScale,
         BarElement,
@@ -39,12 +40,18 @@ const page = () => {
         setOpenChartPage(!OpenChartPage);
         const filteredDetails = fetchedDetailsForAnalysis?.filter((taskCount, taskCountIndex) => taskCountIndex === index)
         console.log("filteredDetails==>", filteredDetails)
-        priorities = filteredDetails?.map((taskCount) => (
+        priorities = filteredDetails?.map((taskStats) => (
             setChartData(
-                [taskCount.priority.High,
-                taskCount.priority.medium,
-                taskCount.priority.low,
-                taskCount.priority.none
+                [taskStats.priority.High,
+                taskStats.priority.medium,
+                taskStats.priority.low,
+                taskStats.priority.none
+                ]
+            ),
+            setPieChartData(
+                [
+                    taskStats.TotalCompletionTask.TotalTask,
+                    taskStats.TotalCompletionTask.CompletionTask
                 ]
             )
 
@@ -53,6 +60,9 @@ const page = () => {
     }
 
     console.log("chartData==>", chartData);
+
+
+    // /* I have to create  */
 
 
     return (
@@ -96,7 +106,35 @@ const page = () => {
                     <CloseIcon onClick={OpenAnalysisPage} />
                 </Box>
                 <div >
-                    <Pie style={{ height: "300px" }} data={Piedata} options={{ maintainAspectRatio: false }} />
+                    <Pie style={{ height: "300px" }} data={{
+                        labels: ['Total task', 'Completed task'],
+                        datasets: [{
+
+                            data: PiechartData,
+
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)',
+                                'rgba(1, 32, 2, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+
+                            //x`  borderWidth: 1
+                        }]
+                    }} options={{ maintainAspectRatio: false }} />
                 </div>
                 <div >
                     <Bar style={{ height: "300px" }} data={
