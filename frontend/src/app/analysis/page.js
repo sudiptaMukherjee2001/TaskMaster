@@ -22,8 +22,8 @@ import CustomBtn from '../components/CustomBtn.jsx';
 const page = () => {
     // ChartJS.register(ArcElement, Tooltip);
     const [OpenChartPage, setOpenChartPage] = useState(false);
-    const [chartData, setChartData] = useState([])
-    const [PiechartData, setPieChartData] = useState([])
+    const [BarchartData, setChartData] = useState([])
+    const [PiechartData, setPieChartData] = useState([]);
     ChartJS.register(ArcElement, CategoryScale,
         LinearScale,
         BarElement,
@@ -32,15 +32,15 @@ const page = () => {
         Legend);
 
     const fetchedDetailsForAnalysis = useTaskAnalysis();
-    console.log("Inside comp==>", fetchedDetailsForAnalysis)
-    let priorities;
-    const OpenAnalysisPage = (index) => {
-        console.log("this is index press", index)
+    // console.log("Inside comp==>", fetchedDetailsForAnalysis)
+
+    const handelOpenAnalysisPage = (index) => {
+        // console.log("this is index press", index)
 
         setOpenChartPage(!OpenChartPage);
-        const filteredDetails = fetchedDetailsForAnalysis?.filter((taskCount, taskCountIndex) => taskCountIndex === index)
-        console.log("filteredDetails==>", filteredDetails)
-        priorities = filteredDetails?.map((taskStats) => (
+        const filteredDetails = fetchedDetailsForAnalysis?.filter((taskCount, taskCountIndex) => taskCountIndex === index);
+        // console.log("filteredDetails==>", filteredDetails)
+        filteredDetails?.map((taskStats) => (
             setChartData(
                 [taskStats.priority.High,
                 taskStats.priority.medium,
@@ -56,33 +56,45 @@ const page = () => {
             )
 
         ))
-        console.log("this is map data==>", filteredDetails);
     }
-
-    console.log("chartData==>", chartData);
-
-
-    // /* I have to create  */
+    // console.log("this is map data==>", filteredDetails);
 
 
+    // console.log("chartData==>", BarchartData);
+
+
+    // /* I have to create  one func that will sort the date if we have a same date on fetchedDetailsForAnalysis  suppose if we have 9-10-2024 two time .. then we have diplay one time*/
+    console.log('====================================');
+    console.log("Data==>    ", fetchedDetailsForAnalysis);
+    console.log('====================================');
+    let uniqueSortedDates = [];
+    fetchedDetailsForAnalysis?.map((task) => {
+        console.log("task==>", task.date);
+        if (!uniqueSortedDates.includes(task.date)) {
+            uniqueSortedDates.push(task.date)
+        }
+    })
+    console.log('====================================');
+    console.log("uniqueSortedDates==>", uniqueSortedDates);
+    console.log('====================================');
     return (
         !OpenChartPage ?
             <Grid container spacing={2} border={"2px solid pink"}>
                 {/* Each Grid item is a separate task box */}
                 {
-                    fetchedDetailsForAnalysis?.map((analytics, index) => {
+                    uniqueSortedDates?.map((analytics, index) => {
                         return (
                             <Grid item xs={12} sm={6} md={4}>
                                 <TaskAnalysisBox>
                                     <Box className="task_date">
-                                        Task Date: {analytics.date}
+                                        Task Date: {analytics}
                                     </Box>
                                     <Box className="lower_box">
                                         <CustomBtn
                                             bgColor={"#ffeddd"}
                                             textColor="rgba(0, 0, 0, 0.8)"
                                             fontWeight='900'
-                                            onClick={() => OpenAnalysisPage(index)}
+                                            onClick={() => handelOpenAnalysisPage(index)}
                                         >
                                             Analyze
                                         </CustomBtn>
@@ -103,7 +115,7 @@ const page = () => {
 
             <DisplayChartPage>
                 <Box className="icon_box">
-                    <CloseIcon onClick={OpenAnalysisPage} />
+                    <CloseIcon onClick={handelOpenAnalysisPage} />
                 </Box>
                 <div >
                     <Pie style={{ height: "300px" }} data={{
@@ -142,7 +154,7 @@ const page = () => {
                             labels: ['High', 'Medium', 'Low', 'none'],
                             datasets: [{
                                 label: 'Number of task per priority',
-                                data: chartData
+                                data: BarchartData
                                 ,
                                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -156,7 +168,6 @@ const page = () => {
     )
 }
 
+
 export default page
 
-
-{/* */ }
