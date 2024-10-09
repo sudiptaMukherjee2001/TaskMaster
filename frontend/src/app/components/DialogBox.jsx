@@ -138,7 +138,7 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
                     <CustomBox>
                         <Box className="input_save_task_btn">
                             {
-                                !isEditable &&
+                                // !isEditable &&
                                 <>
                                     <TextField
                                         id="standard-basic"
@@ -179,19 +179,19 @@ const DialogBox = ({ setOpen, isEditable, perticulerTaskId, taskDataInContext })
                                                         name={`taskInfo[${index}].taskname`}  // Reference the specific task's name in the array
                                                         value={formik.values.taskInfo[index]?.taskname}  // Bind to the correct array index
                                                         onChange={formik.handleChange}
-                                                        error={formik.touched.taskInfo?.[index]?.taskname && Boolean(formik.errors.taskInfo?.[index]?.taskname)}
-                                                        helperText={formik.touched.taskInfo?.[index]?.taskname && formik.errors.taskInfo?.[index]?.taskname}
+
 
                                                     />
                                                     : taskInfo?.taskname
                                                 }
 
                                             </section>
-                                            {!isEditable &&
+                                            {
+                                                // !isEditable &&
                                                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                                                     <Field as="select"
                                                         name={`taskPriority`}
-                                                        value={formik.values.taskInfo.taskPriority}
+                                                        value={formik.values.taskInfo[index]?.taskPriority}
                                                         onChange={(e) => handlePriorityChange(taskInfo?.id, e.target.value)}
 
                                                     >
