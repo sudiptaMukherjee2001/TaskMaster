@@ -15,8 +15,7 @@ import { Chartcontainer, DisplayChartPage, TaskAnalysis, TaskAnalysisBox } from 
 import { Box, Grid } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 /* utily func import */
-import { dataFetchingForAnalysisPage, useTaskAnalysis } from '@/utils/dataFetchingForAnalysisPage.js';
-import { Bardata, Baroptions, Piedata } from '@/utils/dataSet.js';
+import { useTaskAnalysis } from '@/utils/dataFetchingForAnalysisPage.js';
 /*  component import */
 import CustomBtn from '../components/CustomBtn.jsx';
 const page = () => {
