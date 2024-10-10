@@ -31,11 +31,9 @@ export const NavBarBoxForLargeScreen = styled(Box)(({ theme }) => ({
 
 }));
 export const NavBarBoxForMobile = styled(Box)(({ theme }) => ({
-    background: "hsl(0deg 0% 92.54%)",
+    background: "hsl(0deg 0% 100%)",
     // backgroundColor: " hsla(156, 51%, 14%, 5%)",
-    boxShadow: "inset 2px 0px 8px 2px hsl(0deg 3.16% 51.65%)",
     color: "#000",
-    borderRadius: "6px",
     // border: "2px solid pink",
     // borderRadius: "10px",
     display: "flex",
