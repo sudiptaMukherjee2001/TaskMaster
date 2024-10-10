@@ -4,7 +4,7 @@ export const createTaskReq = async (reqBody) => {
     console.log("this is reqbody", reqBody);
 
     try {
-        const res = await axios.post("http://localhost:8001/api/v1/task/create", reqBody)
+        const res = await axios.post("http://192.168.1.11:8001/api/v1/task/create", reqBody)
         console.log("this data send to  mongodb ==>", res);
     } catch (error) {
         console.log("create api is not working", error.message);
