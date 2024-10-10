@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
 
@@ -15,7 +15,9 @@ import Link from 'next/link';
 import { Box } from '@mui/material';
 
 const LargeScreenNavbar = () => {
-    const [activeItemId, setActiveItemId] = useState(null);
+    const [activeLinkId, setActiveItemId] = useState(() => {
+        return sessionStorage.getItem('activeLinkId') || ''
+    });
 
     const listInfo = [
         { id: 1, name: "All task", icon: ListAltIcon, link: "/" },
@@ -24,10 +26,20 @@ const LargeScreenNavbar = () => {
         { id: 4, name: "Analytics", icon: InsertChartIcon, link: "/analysis" },
     ];
 
+    useEffect(() => {
+        sessionStorage.setItem("activeLinkId", activeLinkId);
+    }, [activeLinkId])
+
     const clickedItem = (id) => {
         console.log("clicked", id);
+
         setActiveItemId(id);
+
     };
+
+    console.log("activeLinkId", activeLinkId);
+
+
     return (
         <NavBarBoxForLargeScreen>
             <Box className="top_Box">
@@ -40,9 +52,11 @@ const LargeScreenNavbar = () => {
                     <ListItem
                         key={item.id}
                         onClick={() => clickedItem(item.id)}
-                        isActive={activeItemId === item.id}
+                        isActive={activeLinkId == item.id.toString()}
+
 
                     >
+
 
                         <Link href={item.link}>
                             <item.icon className='icon' />

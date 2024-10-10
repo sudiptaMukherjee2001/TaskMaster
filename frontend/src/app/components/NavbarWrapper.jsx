@@ -16,7 +16,7 @@ export default function NavbarWrapper() {
         <>
             {/* Render different Navbars or handle visibility based on screen size */}
             {
-                (!islaptop || islaptop)
+                (!islaptop || islaptop)//f || t = t
                 &&
                 <LargeScreenNavbar />
             }
