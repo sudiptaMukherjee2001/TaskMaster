@@ -15,9 +15,15 @@ import Link from 'next/link';
 import { Box } from '@mui/material';
 
 const LargeScreenNavbar = () => {
-    const [activeLinkId, setActiveItemId] = useState(() => {
-        return sessionStorage.getItem('activeLinkId') || ''
-    });
+    const [activeLinkId, setActiveItemId] = useState('');
+
+    // Ensure sessionStorage is accessed only in the browser
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedLinkId = sessionStorage.getItem('activeLinkId') || '';
+            setActiveItemId(savedLinkId);
+        }
+    }, []);
 
     const listInfo = [
         { id: 1, name: "All task", icon: ListAltIcon, link: "/" },
@@ -27,8 +33,10 @@ const LargeScreenNavbar = () => {
     ];
 
     useEffect(() => {
-        sessionStorage.setItem("activeLinkId", activeLinkId);
-    }, [activeLinkId])
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem("activeLinkId", activeLinkId);
+        }
+    }, [activeLinkId]);
 
     const clickedItem = (id) => {
         console.log("clicked", id);
