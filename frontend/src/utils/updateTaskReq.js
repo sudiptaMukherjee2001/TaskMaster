@@ -10,7 +10,7 @@ export const updateTaskReq = async (id, updatedBody) => {
             console.log("updated id", id);
             throw new Error('Task id has not found !!!!')
         }
-        const res = await axios.put(`http://192.168.1.11:8001/api/v1/task/update/${id}`, updatedBody);
+        const res = await axios.put(`http://192.168.1.5:8001/api/v1/task/update/${id}`, updatedBody);
         return res.data;
 
 
