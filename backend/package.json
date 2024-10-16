@@ -12,9 +12,8 @@
       "main": "index.js",
         "type": "module",
           "scripts": {
-    "start": "node index.js", // Change for production
-      "dev": "nodemon index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
     "author": "",
